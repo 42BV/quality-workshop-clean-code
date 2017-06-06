@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode;
+package nl._42.qualityws.cleancode.shared;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

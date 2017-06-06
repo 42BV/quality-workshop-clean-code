@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode;
+package nl._42.qualityws.cleancode.shared;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

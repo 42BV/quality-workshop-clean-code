@@ -1,0 +1,8 @@
+server:
+  context-path: /api
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+liquibase:
+  change-log: classpath:db/changelog.xml
