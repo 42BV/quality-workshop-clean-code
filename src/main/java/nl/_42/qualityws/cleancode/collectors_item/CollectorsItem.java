@@ -6,7 +6,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 import nl._42.qualityws.cleancode.collector.Collector;
-import nl._42.qualityws.cleancode.shared.AbstractEntity;
+import nl._42.qualityws.cleancode.shared.entity.AbstractEntity;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.shared;
+package nl._42.qualityws.cleancode.shared.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.domain.Persistable;

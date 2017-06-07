@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import nl._42.qualityws.cleancode.collector.builder.CollectorBuilder;
 import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
+import nl._42.qualityws.cleancode.shared.entity.test.builder.CollectorBuilder;
 
 public class CollectorControllerTest extends AbstractWebIntegrationTest {
     

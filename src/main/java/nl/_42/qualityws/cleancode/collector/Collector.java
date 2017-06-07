@@ -2,7 +2,7 @@ package nl._42.qualityws.cleancode.collector;
 
 import javax.persistence.Entity;
 
-import nl._42.qualityws.cleancode.shared.AbstractEntity;
+import nl._42.qualityws.cleancode.shared.entity.AbstractEntity;
 
 @Entity
 public class Collector extends AbstractEntity {

@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.collector.builder;
+package nl._42.qualityws.cleancode.shared.entity.test.builder;
 
 import nl._42.beanie.EditableBeanBuildCommand;
 import nl._42.qualityws.cleancode.collector.Collector;

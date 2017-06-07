@@ -13,9 +13,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nl._42.qualityws.cleancode.collector.Collector;
-import nl._42.qualityws.cleancode.collector.builder.CollectorBuilder;
-import nl._42.qualityws.cleancode.collectors_item.builder.CollectorsItemBuilder;
 import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
+import nl._42.qualityws.cleancode.shared.entity.test.builder.CollectorBuilder;
+import nl._42.qualityws.cleancode.shared.entity.test.builder.CollectorsItemBuilder;
 
 public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
 
