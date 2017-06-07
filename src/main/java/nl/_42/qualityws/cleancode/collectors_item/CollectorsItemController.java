@@ -29,8 +29,29 @@ public class CollectorsItemController {
         return map(itemService.listMovies(pageable), MovieResult.class, beanMapper);
     }
     
+    @RequestMapping("/albums")
+    public Page<AlbumResult> listAlbums(@SortDefault({"collector.name", "name"}) Pageable pageable) {
+        return map(itemService.listAlbums(pageable), AlbumResult.class, beanMapper);
+    }
+    
+    @RequestMapping("/books")
+    public Page<BookResult> listBooks(@SortDefault({"collector.name", "name"}) Pageable pageable) {
+        return map(itemService.listBooks(pageable), BookResult.class, beanMapper);
+    }
+    
     @RequestMapping(path = "/movies", method = RequestMethod.POST)
     public MovieResult createMovie(@Valid @MergedForm(value = MovieForm.class) Movie movie) {
-        return beanMapper.map(itemService.createMovie(movie), MovieResult.class);
+        return beanMapper.map(itemService.create(movie), MovieResult.class);
     }
+
+    @RequestMapping(path = "/albums", method = RequestMethod.POST)
+    public AlbumResult createAlbum(@Valid @MergedForm(value = AlbumForm.class) Album album) {
+        return beanMapper.map(itemService.create(album), AlbumResult.class);
+    }
+
+    @RequestMapping(path = "/books", method = RequestMethod.POST)
+    public BookResult createBook(@Valid @MergedForm(value = BookForm.class) Book book) {
+        return beanMapper.map(itemService.create(book), BookResult.class);
+    }
+
 }

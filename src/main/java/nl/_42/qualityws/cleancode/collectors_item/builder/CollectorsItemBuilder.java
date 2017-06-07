@@ -15,4 +15,13 @@ public class CollectorsItemBuilder {
     public MovieBuildCommand movie(String name, Collector collector) {
         return beanBuilder.startAs(MovieBuildCommand.class).withName(name).withCollector(collector);
     }
+    
+    public AlbumBuildCommand album(String name, Collector collector) {
+        return beanBuilder.startAs(AlbumBuildCommand.class).withName(name).withCollector(collector);
+    }
+    
+    public BookBuildCommand book(String name, Collector collector) {
+        return beanBuilder.startAs(BookBuildCommand.class).withName(name).withCollector(collector);
+    }
+    
 }
