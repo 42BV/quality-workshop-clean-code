@@ -1,13 +1,14 @@
-package nl._42.qualityws.cleancode.collector;
-
-import io.beanmapper.BeanMapper;
-import io.beanmapper.core.BeanFieldMatch;
-import io.beanmapper.core.converter.BeanConverter;
+package nl._42.qualityws.cleancode.collector.service;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.repository.support.Repositories;
 
-public class StringToCollectorBeanConverter implements BeanConverter {
+import io.beanmapper.BeanMapper;
+import io.beanmapper.core.BeanFieldMatch;
+import io.beanmapper.core.converter.BeanConverter;
+import nl._42.qualityws.cleancode.collector.Collector;
+
+class StringToCollectorBeanConverter implements BeanConverter {
 
     private final CollectorRepository repository;
 

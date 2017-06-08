@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.collector;
+package nl._42.qualityws.cleancode.collector.controller;
 
 import static io.beanmapper.spring.PageableMapper.map;
 
@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import io.beanmapper.BeanMapper;
 import io.beanmapper.spring.web.MergedForm;
+import nl._42.qualityws.cleancode.collector.Collector;
+import nl._42.qualityws.cleancode.collector.service.CollectorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

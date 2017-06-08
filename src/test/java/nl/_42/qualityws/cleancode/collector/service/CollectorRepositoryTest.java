@@ -1,12 +1,13 @@
-package nl._42.qualityws.cleancode.collector;
+package nl._42.qualityws.cleancode.collector.service;
 
 import static org.junit.Assert.assertEquals;
 
-import nl._42.qualityws.cleancode.shared.AbstractIntegrationTest;
-import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import nl._42.qualityws.cleancode.collector.Collector;
+import nl._42.qualityws.cleancode.shared.AbstractIntegrationTest;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
 
 public class CollectorRepositoryTest extends AbstractIntegrationTest {
 

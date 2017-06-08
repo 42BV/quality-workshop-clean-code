@@ -1,10 +1,11 @@
-package nl._42.qualityws.cleancode.collector;
+package nl._42.qualityws.cleancode.collector.controller;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import nl._42.qualityws.cleancode.collector.controller.CollectorForm;
 import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
 
