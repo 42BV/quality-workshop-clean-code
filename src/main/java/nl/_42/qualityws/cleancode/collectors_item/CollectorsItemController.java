@@ -14,6 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.beanmapper.BeanMapper;
 import io.beanmapper.spring.web.MergedForm;
+import nl._42.qualityws.cleancode.collectors_item.album.Album;
+import nl._42.qualityws.cleancode.collectors_item.album.AlbumForm;
+import nl._42.qualityws.cleancode.collectors_item.album.AlbumResult;
+import nl._42.qualityws.cleancode.collectors_item.book.Book;
+import nl._42.qualityws.cleancode.collectors_item.book.BookForm;
+import nl._42.qualityws.cleancode.collectors_item.book.BookResult;
+import nl._42.qualityws.cleancode.collectors_item.movie.Movie;
+import nl._42.qualityws.cleancode.collectors_item.movie.MovieForm;
+import nl._42.qualityws.cleancode.collectors_item.movie.MovieResult;
 
 @RestController
 @RequestMapping("items")

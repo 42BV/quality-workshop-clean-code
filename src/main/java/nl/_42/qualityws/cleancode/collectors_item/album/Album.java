@@ -1,7 +1,9 @@
-package nl._42.qualityws.cleancode.collectors_item;
+package nl._42.qualityws.cleancode.collectors_item.album;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+
+import nl._42.qualityws.cleancode.collectors_item.CollectorsItem;
 
 @Entity
 @DiscriminatorValue("album")

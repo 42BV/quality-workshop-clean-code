@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import nl._42.qualityws.cleancode.collector.Collector;
+import nl._42.qualityws.cleancode.collectors_item.movie.Movie;
 
 public class MovieTest {
 

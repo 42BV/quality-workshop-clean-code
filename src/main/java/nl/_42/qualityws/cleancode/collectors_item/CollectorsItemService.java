@@ -3,6 +3,13 @@ package nl._42.qualityws.cleancode.collectors_item;
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
+import nl._42.qualityws.cleancode.collectors_item.album.Album;
+import nl._42.qualityws.cleancode.collectors_item.album.AlbumRepository;
+import nl._42.qualityws.cleancode.collectors_item.book.Book;
+import nl._42.qualityws.cleancode.collectors_item.book.BookRepository;
+import nl._42.qualityws.cleancode.collectors_item.movie.Movie;
+import nl._42.qualityws.cleancode.collectors_item.movie.MovieRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

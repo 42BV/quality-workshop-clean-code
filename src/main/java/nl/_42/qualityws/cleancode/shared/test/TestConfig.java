@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.shared.entity.test;
+package nl._42.qualityws.cleancode.shared.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +14,6 @@ import nl._42.beanie.save.TransactionalBeanSaver;
 import nl._42.qualityws.cleancode.shared.entity.AbstractEntity;
 
 @Configuration
-@Profile("test")
 public class TestConfig {
     
     @Autowired

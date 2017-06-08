@@ -8,14 +8,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nl._42.qualityws.cleancode.collector.Collector;
+import nl._42.qualityws.cleancode.collectors_item.album.AlbumForm;
+import nl._42.qualityws.cleancode.collectors_item.book.BookForm;
+import nl._42.qualityws.cleancode.collectors_item.movie.MovieForm;
 import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
-import nl._42.qualityws.cleancode.shared.entity.test.builder.CollectorBuilder;
-import nl._42.qualityws.cleancode.shared.entity.test.builder.CollectorsItemBuilder;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorsItemBuilder;
 
 public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
 

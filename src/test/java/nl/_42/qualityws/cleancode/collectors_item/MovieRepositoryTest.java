@@ -6,9 +6,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import nl._42.qualityws.cleancode.collector.Collector;
+import nl._42.qualityws.cleancode.collectors_item.movie.Movie;
+import nl._42.qualityws.cleancode.collectors_item.movie.MovieRepository;
 import nl._42.qualityws.cleancode.shared.AbstractIntegrationTest;
-import nl._42.qualityws.cleancode.shared.entity.test.builder.CollectorBuilder;
-import nl._42.qualityws.cleancode.shared.entity.test.builder.CollectorsItemBuilder;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorsItemBuilder;
 
 public class MovieRepositoryTest extends AbstractIntegrationTest {
 
