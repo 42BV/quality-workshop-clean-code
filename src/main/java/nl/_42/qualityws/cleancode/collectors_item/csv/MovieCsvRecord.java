@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.collectors_item.movie;
+package nl._42.qualityws.cleancode.collectors_item.csv;
 
 import org.csveed.annotations.CsvCell;
 import org.csveed.annotations.CsvFile;

@@ -1,9 +1,7 @@
-package nl._42.qualityws.cleancode.collectors_item.book;
+package nl._42.qualityws.cleancode.collectors_item;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-
-import nl._42.qualityws.cleancode.collectors_item.CollectorsItem;
 
 @Entity
 @DiscriminatorValue("book")

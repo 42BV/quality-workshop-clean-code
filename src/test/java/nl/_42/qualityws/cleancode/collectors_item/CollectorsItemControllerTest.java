@@ -12,9 +12,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nl._42.qualityws.cleancode.collector.Collector;
-import nl._42.qualityws.cleancode.collectors_item.album.AlbumForm;
-import nl._42.qualityws.cleancode.collectors_item.book.BookForm;
-import nl._42.qualityws.cleancode.collectors_item.movie.MovieForm;
+import nl._42.qualityws.cleancode.collectors_item.controller.AlbumForm;
+import nl._42.qualityws.cleancode.collectors_item.controller.BookForm;
+import nl._42.qualityws.cleancode.collectors_item.controller.MovieForm;
 import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorsItemBuilder;

@@ -3,22 +3,14 @@ package nl._42.qualityws.cleancode.shared.test.builder;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 
-import nl._42.qualityws.cleancode.collectors_item.album.AlbumCsvRecord;
-import nl._42.qualityws.cleancode.collectors_item.book.BookCsvRecord;
-import nl._42.qualityws.cleancode.collectors_item.movie.MovieCsvRecord;
+import nl._42.qualityws.cleancode.collectors_item.csv.AlbumCsvRecord;
 
 import org.csveed.api.CsvClient;
 import org.csveed.api.CsvClientImpl;
-import org.csveed.api.Header;
-import org.csveed.api.Row;
-import org.csveed.bean.conversion.Converter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;

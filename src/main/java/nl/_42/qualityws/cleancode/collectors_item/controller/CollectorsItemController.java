@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.collectors_item;
+package nl._42.qualityws.cleancode.collectors_item.controller;
 
 import static io.beanmapper.spring.PageableMapper.map;
 
@@ -14,15 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.beanmapper.BeanMapper;
 import io.beanmapper.spring.web.MergedForm;
-import nl._42.qualityws.cleancode.collectors_item.album.Album;
-import nl._42.qualityws.cleancode.collectors_item.album.AlbumForm;
-import nl._42.qualityws.cleancode.collectors_item.album.AlbumResult;
-import nl._42.qualityws.cleancode.collectors_item.book.Book;
-import nl._42.qualityws.cleancode.collectors_item.book.BookForm;
-import nl._42.qualityws.cleancode.collectors_item.book.BookResult;
-import nl._42.qualityws.cleancode.collectors_item.movie.Movie;
-import nl._42.qualityws.cleancode.collectors_item.movie.MovieForm;
-import nl._42.qualityws.cleancode.collectors_item.movie.MovieResult;
+import nl._42.qualityws.cleancode.collectors_item.Album;
+import nl._42.qualityws.cleancode.collectors_item.Book;
+import nl._42.qualityws.cleancode.collectors_item.Movie;
+import nl._42.qualityws.cleancode.collectors_item.service.CollectorsItemService;
 
 @RestController
 @RequestMapping("items")
@@ -30,6 +25,7 @@ public class CollectorsItemController {
 
     @Autowired
     private CollectorsItemService itemService;
+
     @Autowired
     private BeanMapper beanMapper;
     

@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.collectors_item;
+package nl._42.qualityws.cleancode.collectors_item.controller;
 
 import nl._42.qualityws.cleancode.collector.CollectorResult;
 
