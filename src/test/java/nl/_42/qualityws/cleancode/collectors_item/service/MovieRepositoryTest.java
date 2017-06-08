@@ -2,15 +2,14 @@ package nl._42.qualityws.cleancode.collectors_item.service;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import nl._42.qualityws.cleancode.collector.Collector;
 import nl._42.qualityws.cleancode.collectors_item.Movie;
-import nl._42.qualityws.cleancode.collectors_item.service.MovieRepository;
 import nl._42.qualityws.cleancode.shared.AbstractIntegrationTest;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorsItemBuilder;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MovieRepositoryTest extends AbstractIntegrationTest {
 

@@ -43,6 +43,15 @@ public class CollectorsItemService {
     @Autowired
     private CollectorsItemCsvReaderFacade csvReader;
 
+    @Autowired
+    private MovieMerger movieMerger;
+
+    @Autowired
+    private AlbumMerger albumMerger;
+
+    @Autowired
+    private BookMerger bookMerger;
+
     public <T extends CollectorsItem> T create(T item) {
         notNull(item, "Collectors' item to create may not be null");
         isTrue(item.isNew(), "Cannot create existing collectors' item");
@@ -51,50 +60,17 @@ public class CollectorsItemService {
 
     public void importBooks(InputStream bookStream) {
         Collection<Book> books = csvReader.readBooks(bookStream);
-        for (Book book : books) {
-            if (!book.getAmazonUrl().startsWith("https://www.amazon.com/dp/")) {
-                LOGGER.error("Illegal Amazon URL {} for book [{}]", book.getAmazonUrl(), book.getName());
-                continue;
-            }
-            Book foundBook = bookRepository.findByName(book.getName());
-            if (foundBook != null) {
-                LOGGER.info("Item already exists [{}], merging", book.getName());
-                book = beanMapper.map(book, foundBook);
-            }
-            bookRepository.save(book);
-        }
+        bookMerger.merge(books);
     }
 
     public void importMovies(InputStream movieStream) {
         Collection<Movie> movies = csvReader.readMovies(movieStream);
-        for (Movie movie : movies) {
-            if (!movie.getImdbUrl().startsWith("http://www.imdb.com/title/")) {
-                LOGGER.error("Illegal IMDB URL {} for movie [{}]", movie.getImdbUrl(), movie.getName());
-                continue;
-            }
-            Movie foundMovie = movieRepository.findByName(movie.getName());
-            if (foundMovie != null) {
-                LOGGER.info("Item already exists [{}], merging", movie.getName());
-                movie = beanMapper.map(movie, foundMovie);
-            }
-            movieRepository.save(movie);
-        }
+        movieMerger.merge(movies);
     }
 
     public void importAlbums(InputStream albumStream) {
         Collection<Album> albums = csvReader.readAlbums(albumStream);
-        for (Album album : albums) {
-            if (!album.getSpotifyUrl().startsWith("https://open.spotify.com/album/")) {
-                LOGGER.error("Illegal Spotify URL {} for album [{}]", album.getSpotifyUrl(), album.getName());
-                continue;
-            }
-            Album foundAlbum = albumRepository.findByName(album.getName());
-            if (foundAlbum != null) {
-                LOGGER.info("Item already exists [{}], merging", album.getName());
-                album = beanMapper.map(album, foundAlbum);
-            }
-            albumRepository.save(album);
-        }
+        albumMerger.merge(albums);
     }
 
     public Page<Movie> listMovies(Pageable pageable) {
