@@ -16,13 +16,10 @@ public class AlbumCsvRecord implements CollectorsItemCsvRecord {
     @BeanProperty(name = "spotifyUrl")
     private String web;
     @CsvCell
+    @BeanProperty(name = "name")
     private String album;
     @CsvCell
     private String artist;
-
-    public String getName() {
-        return album + ", " + artist;
-    }
 
     public String getOwner() {
         return owner;

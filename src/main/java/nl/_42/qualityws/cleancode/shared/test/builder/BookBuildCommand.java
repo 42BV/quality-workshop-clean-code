@@ -9,4 +9,5 @@ public interface BookBuildCommand extends EditableBeanBuildCommand<Book> {
     BookBuildCommand withName(String name);
     BookBuildCommand withCollector(Collector collector);
     BookBuildCommand withAmazonUrl(String amazonUrl);
+    BookBuildCommand withAuthor(String author);
 }

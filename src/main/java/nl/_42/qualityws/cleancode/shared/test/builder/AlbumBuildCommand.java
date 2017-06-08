@@ -9,4 +9,5 @@ public interface AlbumBuildCommand extends EditableBeanBuildCommand<Album> {
     AlbumBuildCommand withName(String name);
     AlbumBuildCommand withCollector(Collector collector);
     AlbumBuildCommand withSpotifyUrl(String spotifyUrl);
+    AlbumBuildCommand withArtist(String artist);
 }

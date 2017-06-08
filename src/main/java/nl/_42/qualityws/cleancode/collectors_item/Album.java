@@ -9,11 +9,21 @@ public class Album extends CollectorsItem {
 
     private String spotifyUrl;
 
+    private String artist;
+
     public String getSpotifyUrl() {
         return spotifyUrl;
     }
 
     public void setSpotifyUrl(String spotifyUrl) {
         this.spotifyUrl = spotifyUrl;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 }

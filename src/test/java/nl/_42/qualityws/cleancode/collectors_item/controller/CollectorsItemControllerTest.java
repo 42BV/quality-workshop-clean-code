@@ -44,8 +44,16 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void listAlbums_shouldSucceed_whenFirstPageIsRequested() throws Exception {
         Collector collector = collectorBuilder.collector("Yvonne IJzer").save();
-        itemBuilder.album("Repentless, Slayer", collector).withSpotifyUrl("https://play.spotify.com/album/4rZuYdMyEhEtJh7awIO9sg").save();
-        itemBuilder.album("Aventine, Agnes Nobel", collector).withSpotifyUrl("https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC").save();
+        itemBuilder
+                .album("Repentless", collector)
+                .withSpotifyUrl("https://play.spotify.com/album/4rZuYdMyEhEtJh7awIO9sg")
+                .withArtist("Slayer")
+                .save();
+        itemBuilder
+                .album("Aventine", collector)
+                .withSpotifyUrl("https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC")
+                .withArtist("Agnes Obel")
+                .save();
 
         webClient.perform(get("/items/albums"))
                 .andExpect(status().isOk())
@@ -53,15 +61,24 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
                 .andExpect(jsonPath("$.content", hasSize(2)))
                 .andExpect(jsonPath("$.content").isNotEmpty())
                 .andExpect(jsonPath("$.content[0].collector.name").value("Yvonne IJzer"))
-                .andExpect(jsonPath("$.content[0].name").value("Aventine, Agnes Nobel"))
+                .andExpect(jsonPath("$.content[0].name").value("Aventine"))
+                .andExpect(jsonPath("$.content[0].artist").value("Agnes Obel"))
                 .andExpect(jsonPath("$.content[0].spotifyUrl").value("https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC"));
     }
 
     @Test
     public void listBooks_shouldSucceed_whenFirstPageIsRequested() throws Exception {
         Collector collector = collectorBuilder.collector("Ahmar Warraq").save();
-        itemBuilder.book("John Boyd", collector).withAmazonUrl("https://www.amazon.com/dp/0316796883").save();
-        itemBuilder.book("Dr. Deming", collector).withAmazonUrl("https://www.amazon.com/dp/0671746219").save();
+        itemBuilder
+                .book("John Boyd", collector)
+                .withAmazonUrl("https://www.amazon.com/dp/0316796883")
+                .withAuthor("Robert Coram")
+                .save();
+        itemBuilder
+                .book("Dr. Deming", collector)
+                .withAmazonUrl("https://www.amazon.com/dp/0671746219")
+                .withAuthor("John Deming")
+                .save();
 
 
         webClient.perform(get("/items/books"))
@@ -71,6 +88,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
                 .andExpect(jsonPath("$.content").isNotEmpty())
                 .andExpect(jsonPath("$.content[0].collector.name").value("Ahmar Warraq"))
                 .andExpect(jsonPath("$.content[0].name").value("Dr. Deming"))
+                .andExpect(jsonPath("$.content[0].author").value("John Deming"))
                 .andExpect(jsonPath("$.content[0].amazonUrl").value("https://www.amazon.com/dp/0671746219"));
     }
 
@@ -107,14 +125,16 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
         Collector collector = collectorBuilder.collector("Yvonne IJzer").save();
         AlbumForm form = new AlbumForm();
         form.collector = collector.getId();
-        form.name = "Aventine, Agnes Obel";
+        form.name = "Aventine";
+        form.artist = "Agnes Obel";
         form.spotifyUrl = "https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC";
 
         webClient.perform(MockMvcRequestBuilders.post("/items/albums")
                 .content(objectMapper.writeValueAsString(form)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Yvonne IJzer"))
-                .andExpect(jsonPath("$.name").value("Aventine, Agnes Obel"))
+                .andExpect(jsonPath("$.name").value("Aventine"))
+                .andExpect(jsonPath("$.artist").value("Agnes Obel"))
                 .andExpect(jsonPath("$.spotifyUrl").value("https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC"));
     }
     
@@ -136,6 +156,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
         BookForm form = new BookForm();
         form.collector = collector.getId();
         form.name = "John Boyd";
+        form.author = "Robert Coram";
         form.amazonUrl = "https://www.amazon.com/dp/0316796883";
 
         webClient.perform(MockMvcRequestBuilders.post("/items/books")
@@ -143,6 +164,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Ahmar Warraq"))
                 .andExpect(jsonPath("$.name").value("John Boyd"))
+                .andExpect(jsonPath("$.author").value("Robert Coram"))
                 .andExpect(jsonPath("$.amazonUrl").value("https://www.amazon.com/dp/0316796883"));
     }
     

@@ -57,7 +57,7 @@ public class TestDataLoader implements ResourceLoaderAware {
 //            CsvClient<BookCsvRecord> client = new CsvClientImpl<>(reader, BookCsvRecord.class);
 //            List<BookCsvRecord> books = client.readBeans();
 //            for (BookCsvRecord book : books) {
-//                System.out.println(book.getAuthor());
+//                System.out.println(book.getArtist());
 //                System.out.println(book.getTitle());
 //                System.out.println(book.getWebsite());
 //                System.out.println(book.getCollector());

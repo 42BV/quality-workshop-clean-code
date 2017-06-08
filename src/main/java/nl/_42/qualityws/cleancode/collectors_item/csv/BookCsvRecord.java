@@ -15,13 +15,10 @@ public class BookCsvRecord implements CollectorsItemCsvRecord {
     @BeanProperty(name = "amazonUrl")
     private String website;
     @CsvCell
+    @BeanProperty(name = "name")
     private String title;
     @CsvCell
     private String author;
-
-    public String getName() {
-        return title + ", " + author;
-    }
 
     public String getCollector() {
         return collector;

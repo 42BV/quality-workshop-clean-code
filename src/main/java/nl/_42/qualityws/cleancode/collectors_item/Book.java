@@ -9,11 +9,21 @@ public class Book extends CollectorsItem {
 
     private String amazonUrl;
 
+    private String author;
+
     public String getAmazonUrl() {
         return amazonUrl;
     }
 
     public void setAmazonUrl(String amazonUrl) {
         this.amazonUrl = amazonUrl;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
