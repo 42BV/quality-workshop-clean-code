@@ -7,7 +7,7 @@ import org.csveed.annotations.CsvFile;
 import org.csveed.bean.ColumnNameMapper;
 
 @CsvFile(separator = ',', mappingStrategy = ColumnNameMapper.class)
-public class BookCsvRecord implements CollectionsItemCsvRecord {
+public class BookCsvRecord implements CollectorsItemCsvRecord {
 
     @CsvCell
     private String collector;

@@ -9,11 +9,11 @@ import java.util.List;
 import org.csveed.api.CsvClient;
 import org.csveed.api.CsvClientImpl;
 
-public class CsvReader<T extends CollectionsItemCsvRecord> {
+public class CollectorsItemCsvReader<T extends CollectorsItemCsvRecord> {
 
     private final Class<T> csvRecordType;
 
-    public CsvReader(Class<T> csvRecordType) {
+    public CollectorsItemCsvReader(Class<T> csvRecordType) {
         this.csvRecordType = csvRecordType;
     }
 

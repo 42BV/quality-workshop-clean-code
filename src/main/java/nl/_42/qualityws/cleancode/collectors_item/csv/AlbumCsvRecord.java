@@ -7,7 +7,7 @@ import org.csveed.annotations.CsvFile;
 import org.csveed.bean.ColumnNameMapper;
 
 @CsvFile(separator = ',', mappingStrategy = ColumnNameMapper.class)
-public class AlbumCsvRecord implements CollectionsItemCsvRecord {
+public class AlbumCsvRecord implements CollectorsItemCsvRecord {
 
     @CsvCell
     @BeanProperty(name = "collector")
