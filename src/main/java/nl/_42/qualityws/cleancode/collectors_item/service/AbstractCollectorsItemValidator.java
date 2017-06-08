@@ -1,5 +1,7 @@
 package nl._42.qualityws.cleancode.collectors_item.service;
 
+import java.util.List;
+
 import nl._42.qualityws.cleancode.collectors_item.CollectorsItem;
 
 import org.slf4j.Logger;
@@ -11,15 +13,16 @@ abstract class AbstractCollectorsItemValidator<T extends CollectorsItem> impleme
 
     @Override
     public boolean validate(T item) {
-        boolean validationResult = validateItem(item);
-        if (!validationResult) {
-            logError(item);
+        List<ValidationError> errors = validateItem(item);
+        if (!errors.isEmpty()) {
+            logErrorHeader(item);
+            errors.forEach(error -> LOGGER.error("- {}", error.getDescription()));
         }
-        return validationResult;
+        return errors.isEmpty();
     }
 
-    protected abstract boolean validateItem(T item);
+    protected abstract List<ValidationError> validateItem(T item);
 
-    protected abstract void logError(T item);
+    protected abstract void logErrorHeader(T item);
 
 }

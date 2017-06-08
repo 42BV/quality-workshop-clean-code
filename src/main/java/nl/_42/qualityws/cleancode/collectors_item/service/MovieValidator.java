@@ -1,20 +1,29 @@
 package nl._42.qualityws.cleancode.collectors_item.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nl._42.qualityws.cleancode.collectors_item.Movie;
 
 import org.springframework.stereotype.Component;
+
+import com.sun.javafx.binding.StringFormatter;
 
 @Component
 class MovieValidator extends AbstractCollectorsItemValidator<Movie> {
 
     @Override
-    protected boolean validateItem(Movie movie) {
-        return movie.getImdbUrl().startsWith("http://www.imdb.com/title/");
+    protected List<ValidationError> validateItem(Movie movie) {
+        final List<ValidationError> errors = new ArrayList<>();
+        if (!movie.getImdbUrl().startsWith("http://www.imdb.com/title/")) {
+            errors.add(new ValidationError(StringFormatter.format("illegal IMDB URL %s", movie.getImdbUrl()).getValue()));
+        }
+        return errors;
     }
 
     @Override
-    protected void logError(Movie movie) {
-        LOGGER.error("Illegal IMDB URL {} for movie [{}]", movie.getImdbUrl(), movie.getName());
+    protected void logErrorHeader(Movie movie) {
+        LOGGER.error("Errors for movie [{}]", movie.getName());
     }
 
 }
