@@ -16,7 +16,7 @@ public abstract class AbstractWebIntegrationTest extends AbstractIntegrationTest
     protected MockMvc webClient;
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
+    protected WebApplicationContext webApplicationContext;
 
     @Before
     public void initWebClient() {

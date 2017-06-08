@@ -1,20 +1,31 @@
 package nl._42.qualityws.cleancode.collectors_item.controller;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import nl._42.qualityws.cleancode.collector.Collector;
-import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
-import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
-import nl._42.qualityws.cleancode.shared.test.builder.CollectorsItemBuilder;
+import java.io.InputStream;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.mock.web.MockMultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import nl._42.qualityws.cleancode.collector.Collector;
+import nl._42.qualityws.cleancode.collectors_item.Album;
+import nl._42.qualityws.cleancode.collectors_item.Book;
+import nl._42.qualityws.cleancode.collectors_item.Movie;
+import nl._42.qualityws.cleancode.collectors_item.service.CollectorsItemService;
+import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorsItemBuilder;
 
 public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
 
@@ -24,6 +35,8 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     private CollectorBuilder collectorBuilder;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private CollectorsItemService service;
 
     @Test
     public void listMovies_shouldSucceed_whenFirstPageIsRequested() throws Exception {
@@ -100,7 +113,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
         form.name = "The Wire";
         form.imdbUrl = "http://www.imdb.com/title/tt4425200/";
 
-        webClient.perform(MockMvcRequestBuilders.post("/items/movies")
+        webClient.perform(post("/items/movies")
                 .content(objectMapper.writeValueAsString(form)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Jan de Vries"))
@@ -110,7 +123,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     
     @Test
     public void createMovie_shouldFail_whenInvalidFormIsPosted() throws Exception {
-        webClient.perform(MockMvcRequestBuilders.post("/items/movies")
+        webClient.perform(post("/items/movies")
                 .content(objectMapper.writeValueAsString(new MovieForm())))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").isMap())
@@ -129,7 +142,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
         form.artist = "Agnes Obel";
         form.spotifyUrl = "https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC";
 
-        webClient.perform(MockMvcRequestBuilders.post("/items/albums")
+        webClient.perform(post("/items/albums")
                 .content(objectMapper.writeValueAsString(form)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Yvonne IJzer"))
@@ -140,7 +153,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     
     @Test
     public void createAlbum_shouldFail_whenInvalidFormIsPosted() throws Exception {
-        webClient.perform(MockMvcRequestBuilders.post("/items/albums")
+        webClient.perform(post("/items/albums")
                 .content(objectMapper.writeValueAsString(new AlbumForm())))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").isMap())
@@ -159,7 +172,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
         form.author = "Robert Coram";
         form.amazonUrl = "https://www.amazon.com/dp/0316796883";
 
-        webClient.perform(MockMvcRequestBuilders.post("/items/books")
+        webClient.perform(post("/items/books")
                 .content(objectMapper.writeValueAsString(form)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Ahmar Warraq"))
@@ -170,7 +183,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     
     @Test
     public void createBook_shouldFail_whenInvalidFormIsPosted() throws Exception {
-        webClient.perform(MockMvcRequestBuilders.post("/items/books")
+        webClient.perform(post("/items/books")
                 .content(objectMapper.writeValueAsString(new BookForm())))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").isMap())
@@ -178,5 +191,68 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
                 .andExpect(jsonPath("$.fieldErrors", hasSize(1)))
                 .andExpect(jsonPath("$.fieldErrors[0].field").value("name"))
                 .andExpect(jsonPath("$.fieldErrors[0].code").value("NotEmpty"));
+    }
+    
+    @Test
+    public void uploadBooks_shouldSucceed_whenBooksCsvIsProvided() throws Exception {
+        InputStream booksCsv = webApplicationContext.getResource("classpath:/import/amazon_books.csv").getInputStream();
+        
+        webClient.perform(fileUpload("/items/books/upload")
+                .file(new MockMultipartFile("csv", booksCsv)))
+                .andExpect(status().isOk());
+        
+        Page<Book> books = service.listBooks(new PageRequest(0, 10));
+        assertEquals(6, books.getTotalElements());
+    }
+    
+    @Test
+    public void uploadBooks_shouldFail_whenInvalidCsvIsProvided() throws Exception {
+        InputStream invalidCsv = webApplicationContext.getResource("classpath:/import/imdb_movies.csv").getInputStream();
+        
+        webClient.perform(fileUpload("/items/books/upload")
+                .file(new MockMultipartFile("csv", invalidCsv)))
+                .andExpect(status().isInternalServerError());
+    }
+    
+    @Test
+    public void uploadMovies_shouldSucceed_whenMoviesCsvIsProvided() throws Exception {
+        InputStream moviesCsv = webApplicationContext.getResource("classpath:/import/imdb_movies.csv").getInputStream();
+        
+        webClient.perform(fileUpload("/items/movies/upload")
+                .file(new MockMultipartFile("csv", moviesCsv)))
+                .andExpect(status().isOk());
+        
+        Page<Movie> movies = service.listMovies(new PageRequest(0, 10));
+        assertEquals(11, movies.getTotalElements());
+    }
+    
+    @Test
+    public void uploadMovies_shouldFail_whenInvalidCsvIsProvided() throws Exception {
+        InputStream invalidCsv = webApplicationContext.getResource("classpath:/import/amazon_books.csv").getInputStream();
+        
+        webClient.perform(fileUpload("/items/movies/upload")
+                .file(new MockMultipartFile("csv", invalidCsv)))
+                .andExpect(status().isInternalServerError());
+    }
+    
+    @Test
+    public void uploadAlbums_shouldSucceed_whenAlbumsCsvIsProvided() throws Exception {
+        InputStream albumsCsv = webApplicationContext.getResource("classpath:/import/spotify_albums.csv").getInputStream();
+        
+        webClient.perform(fileUpload("/items/albums/upload")
+                .file(new MockMultipartFile("csv", albumsCsv)))
+                .andExpect(status().isOk());
+        
+        Page<Album> albums = service.listAlbums(new PageRequest(0, 10));
+        assertEquals(10, albums.getTotalElements());
+    }
+    
+    @Test
+    public void uploadAlbums_shouldFail_whenInvalidCsvIsProvided() throws Exception {
+        InputStream invalidCsv = webApplicationContext.getResource("classpath:/import/amazon_books.csv").getInputStream();
+        
+        webClient.perform(fileUpload("/items/albums/upload")
+                .file(new MockMultipartFile("csv", invalidCsv)))
+                .andExpect(status().isInternalServerError());
     }
 }

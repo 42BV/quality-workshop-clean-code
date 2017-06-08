@@ -30,6 +30,12 @@ public class ControllerExceptionAdvice {
         return handleBindingError(ex.getBindingResult());
     }
     
+    @ExceptionHandler({ Exception.class })
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleAllOther(Exception ex) {
+        return ex.getMessage();
+    }
+    
     private ErrorResult handleBindingError(BindingResult result) {
         List<GlobalErrorBody> globalErrors = result.getGlobalErrors()
                 .stream()
