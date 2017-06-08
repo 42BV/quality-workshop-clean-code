@@ -2,9 +2,9 @@ package nl._42.qualityws.cleancode.collectors_item;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-
 import nl._42.qualityws.cleancode.collector.Collector;
+
+import org.junit.Test;
 
 public class MovieTest {
 

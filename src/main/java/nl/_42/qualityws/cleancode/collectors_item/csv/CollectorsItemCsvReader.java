@@ -9,15 +9,15 @@ import java.util.List;
 import org.csveed.api.CsvClient;
 import org.csveed.api.CsvClientImpl;
 
-public class CollectorsItemCsvReader<T extends CollectorsItemCsvRecord> {
+class CollectorsItemCsvReader<T extends CollectorsItemCsvRecord> {
 
     private final Class<T> csvRecordType;
 
-    public CollectorsItemCsvReader(Class<T> csvRecordType) {
+    CollectorsItemCsvReader(Class<T> csvRecordType) {
         this.csvRecordType = csvRecordType;
     }
 
-    public List<T> read(InputStream items) {
+    List<T> read(InputStream items) {
         try(Reader reader = new InputStreamReader(items)) {
             CsvClient<T> client = new CsvClientImpl<>(reader, csvRecordType);
             return client.readBeans();

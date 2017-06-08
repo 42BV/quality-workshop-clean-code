@@ -1,10 +1,10 @@
 package nl._42.qualityws.cleancode.shared.test.builder;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import nl._42.beanie.BeanBuilder;
 import nl._42.qualityws.cleancode.collector.Collector;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CollectorsItemBuilder {

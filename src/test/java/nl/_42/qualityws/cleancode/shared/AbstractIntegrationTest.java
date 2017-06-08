@@ -1,13 +1,13 @@
 package nl._42.qualityws.cleancode.shared;
 
+import nl._42.database.truncator.DatabaseTruncator;
+
 import org.junit.After;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import nl._42.database.truncator.DatabaseTruncator;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)

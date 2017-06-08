@@ -5,14 +5,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
+import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
-import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
 
 public class CollectorControllerTest extends AbstractWebIntegrationTest {
     

@@ -1,17 +1,11 @@
 package nl._42.qualityws.cleancode.shared.test.builder;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import nl._42.qualityws.cleancode.collectors_item.csv.AlbumCsvRecord;
 import nl._42.qualityws.cleancode.collectors_item.service.CollectorsItemService;
 
-import org.csveed.api.CsvClient;
-import org.csveed.api.CsvClientImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Profile;

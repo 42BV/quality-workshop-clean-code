@@ -1,9 +1,15 @@
 package nl._42.qualityws.cleancode.shared.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import org.springframework.data.domain.Persistable;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
 public abstract class AbstractEntity implements Persistable<Long> {

@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CollectorsItemService {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(CollectorsItemService.class);
+    protected final static Logger LOGGER = LoggerFactory.getLogger(CollectorsItemService.class);
 
     @Autowired
     private CollectorsItemRepository collectorsItemRepository;
@@ -38,19 +38,19 @@ public class CollectorsItemService {
     private BookRepository bookRepository;
 
     @Autowired
-    private BeanMapper beanMapper;
-
-    @Autowired
     private CollectorsItemCsvReaderFacade csvReader;
 
     @Autowired
-    private MovieMerger movieMerger;
+    private BeanMapper beanMapper;
 
     @Autowired
-    private AlbumMerger albumMerger;
+    private MovieValidator movieValidator;
 
     @Autowired
-    private BookMerger bookMerger;
+    private AlbumValidator albumValidator;
+
+    @Autowired
+    private BookValidator bookValidator;
 
     public <T extends CollectorsItem> T create(T item) {
         notNull(item, "Collectors' item to create may not be null");
@@ -60,17 +60,35 @@ public class CollectorsItemService {
 
     public void importBooks(InputStream bookStream) {
         Collection<Book> books = csvReader.readBooks(bookStream);
-        bookMerger.merge(books);
+        merge(bookValidator, books);
     }
 
     public void importMovies(InputStream movieStream) {
         Collection<Movie> movies = csvReader.readMovies(movieStream);
-        movieMerger.merge(movies);
+        merge(movieValidator, movies);
     }
 
     public void importAlbums(InputStream albumStream) {
         Collection<Album> albums = csvReader.readAlbums(albumStream);
-        albumMerger.merge(albums);
+        merge(albumValidator, albums);
+    }
+
+    private <T extends CollectorsItem> void merge(CollectorsItemValidator<T> validator, Collection<T> items) {
+        for (T item : items) {
+            if (!validator.validate(item)) {
+                continue;
+            }
+            collectorsItemRepository.save(mergeItem(item));
+        }
+    }
+
+    private CollectorsItem mergeItem(CollectorsItem item) {
+        CollectorsItem foundItem = collectorsItemRepository.findByName(item.getName());
+        if (foundItem == null) {
+            return item;
+        }
+        LOGGER.info("Item already exists [{}], merging", item.getName());
+        return beanMapper.map(item, foundItem);
     }
 
     public Page<Movie> listMovies(Pageable pageable) {

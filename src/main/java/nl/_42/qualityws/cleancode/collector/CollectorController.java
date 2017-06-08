@@ -4,6 +4,9 @@ import static io.beanmapper.spring.PageableMapper.map;
 
 import javax.validation.Valid;
 
+import io.beanmapper.BeanMapper;
+import io.beanmapper.spring.web.MergedForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,9 +14,6 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.beanmapper.BeanMapper;
-import io.beanmapper.spring.web.MergedForm;
 
 @RestController
 @RequestMapping("collectors")

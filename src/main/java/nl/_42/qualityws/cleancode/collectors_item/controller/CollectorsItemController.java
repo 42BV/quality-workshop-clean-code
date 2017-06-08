@@ -4,6 +4,13 @@ import static io.beanmapper.spring.PageableMapper.map;
 
 import javax.validation.Valid;
 
+import io.beanmapper.BeanMapper;
+import io.beanmapper.spring.web.MergedForm;
+import nl._42.qualityws.cleancode.collectors_item.Album;
+import nl._42.qualityws.cleancode.collectors_item.Book;
+import nl._42.qualityws.cleancode.collectors_item.Movie;
+import nl._42.qualityws.cleancode.collectors_item.service.CollectorsItemService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,13 +18,6 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.beanmapper.BeanMapper;
-import io.beanmapper.spring.web.MergedForm;
-import nl._42.qualityws.cleancode.collectors_item.Album;
-import nl._42.qualityws.cleancode.collectors_item.Book;
-import nl._42.qualityws.cleancode.collectors_item.Movie;
-import nl._42.qualityws.cleancode.collectors_item.service.CollectorsItemService;
 
 @RestController
 @RequestMapping("items")
