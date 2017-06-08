@@ -1,15 +1,18 @@
 package nl._42.qualityws.cleancode.collectors_item.csv;
 
+import io.beanmapper.annotations.BeanProperty;
+
 import org.csveed.annotations.CsvCell;
 import org.csveed.annotations.CsvFile;
 import org.csveed.bean.ColumnNameMapper;
 
 @CsvFile(separator = ',', mappingStrategy = ColumnNameMapper.class)
-public class MovieCsvRecord {
+public class MovieCsvRecord implements CollectionsItemCsvRecord {
 
     @CsvCell(columnName = "collector_name")
     private String collector;
     @CsvCell
+    @BeanProperty(name = "imdbUrl")
     private String url;
     @CsvCell
     private String name;

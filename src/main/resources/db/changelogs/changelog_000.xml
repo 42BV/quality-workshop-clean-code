@@ -24,7 +24,7 @@
                 <constraints nullable="false" references="collector(id)" foreignKeyName="fk_collectors_item_collector_id" />
             </column>
             <column name="dtype" type="varchar(8)"/>
-            <column name="name" type="varchar(64)"/>
+            <column name="name" type="varchar(256)"/>
             <column name="imdb_url" type="varchar(256)"/>
             <column name="spotify_url" type="varchar(256)"/>
             <column name="amazon_url" type="varchar(256)"/>

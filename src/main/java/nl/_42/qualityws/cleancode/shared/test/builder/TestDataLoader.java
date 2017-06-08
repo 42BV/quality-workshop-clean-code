@@ -8,9 +8,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import nl._42.qualityws.cleancode.collectors_item.csv.AlbumCsvRecord;
+import nl._42.qualityws.cleancode.collectors_item.service.CollectorsItemService;
 
 import org.csveed.api.CsvClient;
 import org.csveed.api.CsvClientImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
@@ -25,8 +27,16 @@ public class TestDataLoader implements ResourceLoaderAware {
     private Resource imdbMoviesCsv;
     private Resource spotifyAlbumsCsv;
 
+    @Autowired
+    private CollectorsItemService collectorsItemService;
+
     @PostConstruct
     public void load() throws IOException {
+
+
+        collectorsItemService.importAlbums(spotifyAlbumsCsv.getInputStream());
+        collectorsItemService.importBooks(amazonBooksCsv.getInputStream());
+        collectorsItemService.importMovies(imdbMoviesCsv.getInputStream());
 
 //        try(Reader reader = new InputStreamReader(imdbMoviesCsv.getInputStream())) {
 //            CsvClient<MovieCsvRecord> client = new CsvClientImpl<>(reader, MovieCsvRecord.class);
@@ -38,16 +48,16 @@ public class TestDataLoader implements ResourceLoaderAware {
 //            }
 //        }
 
-        try(Reader reader = new InputStreamReader(spotifyAlbumsCsv.getInputStream())) {
-            CsvClient<AlbumCsvRecord> client = new CsvClientImpl<>(reader, AlbumCsvRecord.class);
-            List<AlbumCsvRecord> albums = client.readBeans();
-            for (AlbumCsvRecord album : albums) {
-                System.out.println(album.getAlbum());
-                System.out.println(album.getArtist());
-                System.out.println(album.getOwner());
-                System.out.println(album.getWeb());
-            }
-        }
+//        try(Reader reader = new InputStreamReader(spotifyAlbumsCsv.getInputStream())) {
+//            CsvClient<AlbumCsvRecord> client = new CsvClientImpl<>(reader, AlbumCsvRecord.class);
+//            List<AlbumCsvRecord> albums = client.readBeans();
+//            for (AlbumCsvRecord album : albums) {
+//                System.out.println(album.getAlbum());
+//                System.out.println(album.getArtist());
+//                System.out.println(album.getOwner());
+//                System.out.println(album.getWeb());
+//            }
+//        }
 
 //        try(Reader reader = new InputStreamReader(amazonBooksCsv.getInputStream())) {
 //            CsvClient<BookCsvRecord> client = new CsvClientImpl<>(reader, BookCsvRecord.class);

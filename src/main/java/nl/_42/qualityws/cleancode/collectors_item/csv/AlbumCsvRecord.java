@@ -1,20 +1,28 @@
 package nl._42.qualityws.cleancode.collectors_item.csv;
 
+import io.beanmapper.annotations.BeanProperty;
+
 import org.csveed.annotations.CsvCell;
 import org.csveed.annotations.CsvFile;
 import org.csveed.bean.ColumnNameMapper;
 
 @CsvFile(separator = ',', mappingStrategy = ColumnNameMapper.class)
-public class AlbumCsvRecord {
+public class AlbumCsvRecord implements CollectionsItemCsvRecord {
 
     @CsvCell
+    @BeanProperty(name = "collector")
     private String owner;
     @CsvCell
+    @BeanProperty(name = "spotifyUrl")
     private String web;
     @CsvCell
     private String album;
     @CsvCell
     private String artist;
+
+    public String getName() {
+        return album + ", " + artist;
+    }
 
     public String getOwner() {
         return owner;

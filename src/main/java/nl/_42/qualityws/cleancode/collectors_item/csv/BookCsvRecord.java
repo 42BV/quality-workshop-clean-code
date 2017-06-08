@@ -1,20 +1,27 @@
 package nl._42.qualityws.cleancode.collectors_item.csv;
 
+import io.beanmapper.annotations.BeanProperty;
+
 import org.csveed.annotations.CsvCell;
 import org.csveed.annotations.CsvFile;
 import org.csveed.bean.ColumnNameMapper;
 
 @CsvFile(separator = ',', mappingStrategy = ColumnNameMapper.class)
-public class BookCsvRecord {
+public class BookCsvRecord implements CollectionsItemCsvRecord {
 
     @CsvCell
     private String collector;
     @CsvCell
+    @BeanProperty(name = "amazonUrl")
     private String website;
     @CsvCell
     private String title;
     @CsvCell
     private String author;
+
+    public String getName() {
+        return title + ", " + author;
+    }
 
     public String getCollector() {
         return collector;
