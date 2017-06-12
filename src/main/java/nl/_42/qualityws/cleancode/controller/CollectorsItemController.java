@@ -45,17 +45,17 @@ public class CollectorsItemController {
     
     @PostMapping(path = "/movies")
     public Movie createMovie(@Valid @RequestBody Movie movie) {
-        return itemService.create(movie);
+        return itemService.createMovie(movie);
     }
 
     @PostMapping(path = "/albums")
     public Album createAlbum(@Valid @RequestBody Album album) {
-        return itemService.create(album);
+        return itemService.createAlbum(album);
     }
 
     @PostMapping(path = "/books")
     public Book createBook(@Valid @RequestBody Book book) {
-        return itemService.create(book);
+        return itemService.createBook(book);
     }
 
     @PostMapping("/movies/upload")

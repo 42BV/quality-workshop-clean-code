@@ -55,10 +55,22 @@ public class CollectorsItemService {
     @Autowired
     private CollectorsItemValidator validator;
 
-    public <T extends CollectorsItem> T create(T item) {
-        notNull(item, "Collectors' item to create may not be null");
-        isTrue(item.isNew(), "Cannot create existing collectors' item");
-        return collectorsItemRepository.save(item);
+    public Album createAlbum(Album album) {
+        notNull(album, "Album to create may not be null");
+        isTrue(album.isNew(), "Cannot create existing album");
+        return collectorsItemRepository.save(album);
+    }
+
+    public Book createBook(Book book) {
+        notNull(book, "Book to create may not be null");
+        isTrue(book.isNew(), "Cannot create existing book");
+        return collectorsItemRepository.save(book);
+    }
+
+    public Movie createMovie(Movie movie) {
+        notNull(movie, "Movie to create may not be null");
+        isTrue(movie.isNew(), "Cannot create existing movie");
+        return collectorsItemRepository.save(movie);
     }
 
     public void importBooks(InputStream bookStream) {
