@@ -3,10 +3,13 @@ package nl._42.qualityws.cleancode.model.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nl._42.qualityws.cleancode.model.CollectorsItem;
+
 import org.springframework.stereotype.Component;
 
 @Component
-public class PersonNameValidator {
+public abstract class AbstractPersonNameValidator<T extends CollectorsItem>
+        extends AbstractCollectorsItemValidator<T> {
 
     private static Pattern pattern = Pattern.compile("[a-zA-Z -\\.]+");
 

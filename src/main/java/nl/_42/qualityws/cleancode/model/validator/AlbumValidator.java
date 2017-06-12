@@ -5,16 +5,12 @@ import java.util.List;
 
 import nl._42.qualityws.cleancode.model.Album;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sun.javafx.binding.StringFormatter;
 
 @Component
-public class AlbumValidator extends AbstractCollectorsItemValidator<Album> {
-
-    @Autowired
-    private PersonNameValidator personNameValidator;
+public class AlbumValidator extends AbstractPersonNameValidator<Album> {
 
     @Override
     protected List<ValidationError> validateItem(Album album) {
@@ -22,7 +18,7 @@ public class AlbumValidator extends AbstractCollectorsItemValidator<Album> {
         if (!album.getSpotifyUrl().startsWith("https://open.spotify.com/album/")) {
             errors.add(new ValidationError(StringFormatter.format("illegal Spotify URL %s", album.getSpotifyUrl()).getValue()));
         }
-        if (!personNameValidator.verifyName(album.getArtist())) {
+        if (!verifyName(album.getArtist())) {
             errors.add(new ValidationError(StringFormatter.format("illegal Album artist [%s]", album.getArtist()).getValue()));
         }
         return errors;

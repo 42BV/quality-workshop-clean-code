@@ -5,16 +5,12 @@ import java.util.List;
 
 import nl._42.qualityws.cleancode.model.Book;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sun.javafx.binding.StringFormatter;
 
 @Component
-public class BookValidator extends AbstractCollectorsItemValidator<Book> {
-
-    @Autowired
-    private PersonNameValidator personNameValidator;
+public class BookValidator extends AbstractPersonNameValidator<Book> {
 
     @Override
     protected List<ValidationError> validateItem(Book book) {
@@ -22,7 +18,7 @@ public class BookValidator extends AbstractCollectorsItemValidator<Book> {
         if (!book.getAmazonUrl().startsWith("https://www.amazon.com/dp/")) {
             errors.add(new ValidationError(StringFormatter.format("illegal Amazon URL %s", book.getAmazonUrl()).getValue()));
         }
-        if (!personNameValidator.verifyName(book.getAuthor())) {
+        if (!verifyName(book.getAuthor())) {
             errors.add(new ValidationError(StringFormatter.format("illegal Book author [%s]", book.getAuthor()).getValue()));
         }
         return errors;
