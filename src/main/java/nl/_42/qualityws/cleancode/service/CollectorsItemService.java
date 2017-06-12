@@ -11,10 +11,7 @@ import nl._42.qualityws.cleancode.model.Album;
 import nl._42.qualityws.cleancode.model.Book;
 import nl._42.qualityws.cleancode.model.CollectorsItem;
 import nl._42.qualityws.cleancode.model.Movie;
-import nl._42.qualityws.cleancode.model.validator.AlbumValidator;
-import nl._42.qualityws.cleancode.model.validator.BookValidator;
 import nl._42.qualityws.cleancode.model.validator.CollectorsItemValidator;
-import nl._42.qualityws.cleancode.model.validator.MovieValidator;
 import nl._42.qualityws.cleancode.repository.AlbumRepository;
 import nl._42.qualityws.cleancode.repository.BookRepository;
 import nl._42.qualityws.cleancode.repository.CollectorsItemRepository;
@@ -52,13 +49,7 @@ public class CollectorsItemService {
     private BeanMapper beanMapper;
 
     @Autowired
-    private MovieValidator movieValidator;
-
-    @Autowired
-    private AlbumValidator albumValidator;
-
-    @Autowired
-    private BookValidator bookValidator;
+    private CollectorsItemValidator validator;
 
     public <T extends CollectorsItem> T create(T item) {
         notNull(item, "Collectors' item to create may not be null");
@@ -68,20 +59,20 @@ public class CollectorsItemService {
 
     public void importBooks(InputStream bookStream) {
         Collection<Book> books = csvReader.readBooks(bookStream);
-        merge(bookValidator, books);
+        merge(books);
     }
 
     public void importMovies(InputStream movieStream) {
         Collection<Movie> movies = csvReader.readMovies(movieStream);
-        merge(movieValidator, movies);
+        merge(movies);
     }
 
     public void importAlbums(InputStream albumStream) {
         Collection<Album> albums = csvReader.readAlbums(albumStream);
-        merge(albumValidator, albums);
+        merge(albums);
     }
 
-    private <T extends CollectorsItem> void merge(CollectorsItemValidator<T> validator, Collection<T> items) {
+    private <T extends CollectorsItem> void merge(Collection<T> items) {
         for (T item : items) {
             if (!validator.validate(item)) {
                 continue;
