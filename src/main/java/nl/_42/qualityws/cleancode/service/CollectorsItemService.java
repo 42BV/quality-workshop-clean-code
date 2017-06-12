@@ -5,8 +5,13 @@ import static org.springframework.util.Assert.notNull;
 
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 
 import io.beanmapper.BeanMapper;
+import nl._42.qualityws.cleancode.csv.AlbumCsvRecord;
+import nl._42.qualityws.cleancode.csv.BookCsvRecord;
+import nl._42.qualityws.cleancode.csv.CollectorsItemCsvReader;
+import nl._42.qualityws.cleancode.csv.MovieCsvRecord;
 import nl._42.qualityws.cleancode.model.Album;
 import nl._42.qualityws.cleancode.model.Book;
 import nl._42.qualityws.cleancode.model.CollectorsItem;
@@ -16,7 +21,6 @@ import nl._42.qualityws.cleancode.repository.AlbumRepository;
 import nl._42.qualityws.cleancode.repository.BookRepository;
 import nl._42.qualityws.cleancode.repository.CollectorsItemRepository;
 import nl._42.qualityws.cleancode.repository.MovieRepository;
-import nl._42.qualityws.cleancode.csv.CollectorsItemCsvReaderFacade;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +47,7 @@ public class CollectorsItemService {
     private BookRepository bookRepository;
 
     @Autowired
-    private CollectorsItemCsvReaderFacade csvReader;
+    private CollectorsItemCsvReader csvReader;
 
     @Autowired
     private BeanMapper beanMapper;
@@ -58,17 +62,20 @@ public class CollectorsItemService {
     }
 
     public void importBooks(InputStream bookStream) {
-        Collection<Book> books = csvReader.readBooks(bookStream);
+        List<BookCsvRecord> bookCsvRecords = csvReader.read(bookStream, BookCsvRecord.class);
+        Collection<Book> books = beanMapper.map(bookCsvRecords, Book.class);
         merge(books);
     }
 
     public void importMovies(InputStream movieStream) {
-        Collection<Movie> movies = csvReader.readMovies(movieStream);
+        List<MovieCsvRecord> movieCsvRecords = csvReader.read(movieStream, MovieCsvRecord.class);
+        Collection<Movie> movies = beanMapper.map(movieCsvRecords, Movie.class);
         merge(movies);
     }
 
     public void importAlbums(InputStream albumStream) {
-        Collection<Album> albums = csvReader.readAlbums(albumStream);
+        List<AlbumCsvRecord> albumCsvRecords = csvReader.read(albumStream, AlbumCsvRecord.class);
+        Collection<Album> albums = beanMapper.map(albumCsvRecords, Album.class);
         merge(albums);
     }
 

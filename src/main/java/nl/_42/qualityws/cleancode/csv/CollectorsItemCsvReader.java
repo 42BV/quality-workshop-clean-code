@@ -8,18 +8,14 @@ import java.util.List;
 
 import org.csveed.api.CsvClient;
 import org.csveed.api.CsvClientImpl;
+import org.springframework.stereotype.Component;
 
-public class CollectorsItemCsvReader<T extends CollectorsItemCsvRecord> {
+@Component
+public class CollectorsItemCsvReader {
 
-    private final Class<T> csvRecordType;
-
-    CollectorsItemCsvReader(Class<T> csvRecordType) {
-        this.csvRecordType = csvRecordType;
-    }
-
-    List<T> read(InputStream items) {
+    public <T extends CollectorsItemCsvRecord> List<T> read(InputStream items, Class<T> csvClass) {
         try(Reader reader = new InputStreamReader(items)) {
-            CsvClient<T> client = new CsvClientImpl<>(reader, csvRecordType);
+            CsvClient<T> client = new CsvClientImpl<T>(reader, csvClass);
             return client.readBeans();
         } catch (IOException err) {
             throw new RuntimeException(err);
