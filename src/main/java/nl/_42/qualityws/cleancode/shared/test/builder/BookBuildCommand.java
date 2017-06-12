@@ -1,8 +1,8 @@
 package nl._42.qualityws.cleancode.shared.test.builder;
 
 import nl._42.beanie.EditableBeanBuildCommand;
-import nl._42.qualityws.cleancode.collector.Collector;
-import nl._42.qualityws.cleancode.collectors_item.Book;
+import nl._42.qualityws.cleancode.model.Book;
+import nl._42.qualityws.cleancode.model.Collector;
 
 public interface BookBuildCommand extends EditableBeanBuildCommand<Book> {
     

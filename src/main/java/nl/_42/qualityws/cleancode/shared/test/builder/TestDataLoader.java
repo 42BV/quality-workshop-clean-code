@@ -11,7 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import nl._42.qualityws.cleancode.collectors_item.service.CollectorsItemService;
+import nl._42.qualityws.cleancode.service.CollectorsItemService;
 
 @Component
 @Profile("!test")

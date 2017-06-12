@@ -1,7 +1,7 @@
 package nl._42.qualityws.cleancode.shared.test.builder;
 
 import nl._42.beanie.BeanBuilder;
-import nl._42.qualityws.cleancode.collector.Collector;
+import nl._42.qualityws.cleancode.model.Collector;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
