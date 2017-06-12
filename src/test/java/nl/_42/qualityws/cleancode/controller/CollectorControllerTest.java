@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import nl._42.qualityws.cleancode.controller.CollectorForm;
+import nl._42.qualityws.cleancode.model.Collector;
 import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
 
@@ -38,11 +38,11 @@ public class CollectorControllerTest extends AbstractWebIntegrationTest {
     
     @Test
     public void create_shouldSucceed_whenValidFormIsPosted() throws Exception {
-        CollectorForm form = new CollectorForm();
-        form.name = "Jan de Vries";
+        Collector collector = new Collector();
+        collector.setName("Jan de Vries");
 
         webClient.perform(MockMvcRequestBuilders.post("/collectors")
-                .content(objectMapper.writeValueAsString(form)))
+                .content(objectMapper.writeValueAsString(collector)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Jan de Vries"));
     }
@@ -50,7 +50,7 @@ public class CollectorControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void create_shouldFail_whenInvalidFormIsPosted() throws Exception {
         webClient.perform(MockMvcRequestBuilders.post("/collectors")
-                .content(objectMapper.writeValueAsString(new CollectorForm())))
+                .content(objectMapper.writeValueAsString(new Collector())))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").isMap())
                 .andExpect(jsonPath("$.fieldErrors").isArray())

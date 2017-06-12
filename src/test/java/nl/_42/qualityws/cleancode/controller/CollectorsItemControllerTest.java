@@ -10,14 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.InputStream;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.mock.web.MockMultipartFile;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import nl._42.qualityws.cleancode.model.Album;
 import nl._42.qualityws.cleancode.model.Book;
 import nl._42.qualityws.cleancode.model.Collector;
@@ -26,6 +18,14 @@ import nl._42.qualityws.cleancode.service.CollectorsItemService;
 import nl._42.qualityws.cleancode.shared.AbstractWebIntegrationTest;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorBuilder;
 import nl._42.qualityws.cleancode.shared.test.builder.CollectorsItemBuilder;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.mock.web.MockMultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
 
@@ -108,13 +108,13 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void createMovie_shouldSucceed_whenValidFormIsPosted() throws Exception {
         Collector collector = collectorBuilder.collector("Jan de Vries").save();
-        MovieForm form = new MovieForm();
-        form.collector = collector.getId();
-        form.name = "The Wire";
-        form.imdbUrl = "http://www.imdb.com/title/tt4425200/";
+        Movie movie = new Movie();
+        movie.setCollector(collector);
+        movie.setName("The Wire");
+        movie.setImdbUrl("http://www.imdb.com/title/tt4425200/");
 
         webClient.perform(post("/items/movies")
-                .content(objectMapper.writeValueAsString(form)))
+                .content(objectMapper.writeValueAsString(movie)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Jan de Vries"))
                 .andExpect(jsonPath("$.name").value("The Wire"))
@@ -124,7 +124,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void createMovie_shouldFail_whenInvalidFormIsPosted() throws Exception {
         webClient.perform(post("/items/movies")
-                .content(objectMapper.writeValueAsString(new MovieForm())))
+                .content(objectMapper.writeValueAsString(new Movie())))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").isMap())
                 .andExpect(jsonPath("$.fieldErrors").isArray())
@@ -136,14 +136,14 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void createAlbum_shouldSucceed_whenValidFormIsPosted() throws Exception {
         Collector collector = collectorBuilder.collector("Yvonne IJzer").save();
-        AlbumForm form = new AlbumForm();
-        form.collector = collector.getId();
-        form.name = "Aventine";
-        form.artist = "Agnes Obel";
-        form.spotifyUrl = "https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC";
+        Album album = new Album();
+        album.setCollector(collector);
+        album.setName("Aventine");
+        album.setArtist("Agnes Obel");
+        album.setSpotifyUrl("https://play.spotify.com/album/5mdWrhN59Jte2qZeLVKBJC");
 
         webClient.perform(post("/items/albums")
-                .content(objectMapper.writeValueAsString(form)))
+                .content(objectMapper.writeValueAsString(album)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Yvonne IJzer"))
                 .andExpect(jsonPath("$.name").value("Aventine"))
@@ -154,7 +154,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void createAlbum_shouldFail_whenInvalidFormIsPosted() throws Exception {
         webClient.perform(post("/items/albums")
-                .content(objectMapper.writeValueAsString(new AlbumForm())))
+                .content(objectMapper.writeValueAsString(new Album())))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").isMap())
                 .andExpect(jsonPath("$.fieldErrors").isArray())
@@ -166,14 +166,14 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void createBook_shouldSucceed_whenValidFormIsPosted() throws Exception {
         Collector collector = collectorBuilder.collector("Ahmar Warraq").save();
-        BookForm form = new BookForm();
-        form.collector = collector.getId();
-        form.name = "John Boyd";
-        form.author = "Robert Coram";
-        form.amazonUrl = "https://www.amazon.com/dp/0316796883";
+        Book book = new Book();
+        book.setCollector(collector);
+        book.setName("John Boyd");
+        book.setAuthor("Robert Coram");
+        book.setAmazonUrl("https://www.amazon.com/dp/0316796883");
 
         webClient.perform(post("/items/books")
-                .content(objectMapper.writeValueAsString(form)))
+                .content(objectMapper.writeValueAsString(book)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.collector.name").value("Ahmar Warraq"))
                 .andExpect(jsonPath("$.name").value("John Boyd"))
@@ -184,7 +184,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     @Test
     public void createBook_shouldFail_whenInvalidFormIsPosted() throws Exception {
         webClient.perform(post("/items/books")
-                .content(objectMapper.writeValueAsString(new BookForm())))
+                .content(objectMapper.writeValueAsString(new Book())))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").isMap())
                 .andExpect(jsonPath("$.fieldErrors").isArray())

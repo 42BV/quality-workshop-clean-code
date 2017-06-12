@@ -7,10 +7,13 @@ import javax.persistence.ManyToOne;
 
 import nl._42.qualityws.cleancode.shared.entity.AbstractEntity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class CollectorsItem extends AbstractEntity {
 
+    @NotEmpty
     private String name;
 
     @ManyToOne
