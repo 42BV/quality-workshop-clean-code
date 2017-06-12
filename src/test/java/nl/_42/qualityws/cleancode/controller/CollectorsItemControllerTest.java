@@ -39,7 +39,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     private CollectorsItemService service;
 
     @Test
-    public void listMovies_shouldSucceed_whenFirstPageIsRequested() throws Exception {
+    public void movieList() throws Exception {
         Collector collector = collectorBuilder.collector("Jan de Vries").save();
         itemBuilder.movie("The Wire", collector).withImdbUrl("http://www.imdb.com/title/tt0306414/").save();
         itemBuilder.movie("John Wick: chapter 2", collector).withImdbUrl("http://www.imdb.com/title/tt4425200/").save();
@@ -55,7 +55,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    public void listAlbums_shouldSucceed_whenFirstPageIsRequested() throws Exception {
+    public void albumList() throws Exception {
         Collector collector = collectorBuilder.collector("Yvonne IJzer").save();
         itemBuilder
                 .album("Repentless", collector)
@@ -80,7 +80,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    public void listBooks_shouldSucceed_whenFirstPageIsRequested() throws Exception {
+    public void bookList() throws Exception {
         Collector collector = collectorBuilder.collector("Ahmar Warraq").save();
         itemBuilder
                 .book("John Boyd", collector)
@@ -106,7 +106,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    public void createMovie_shouldSucceed_whenValidFormIsPosted() throws Exception {
+    public void movieCreate1() throws Exception {
         Collector collector = collectorBuilder.collector("Jan de Vries").save();
         Movie movie = new Movie();
         movie.setCollector(collector);
@@ -122,7 +122,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void createMovie_shouldFail_whenInvalidFormIsPosted() throws Exception {
+    public void movieCreate2() throws Exception {
         webClient.perform(post("/items/movies")
                 .content(objectMapper.writeValueAsString(new Movie())))
                 .andExpect(status().isBadRequest())
@@ -134,7 +134,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void createAlbum_shouldSucceed_whenValidFormIsPosted() throws Exception {
+    public void albumCreate1() throws Exception {
         Collector collector = collectorBuilder.collector("Yvonne IJzer").save();
         Album album = new Album();
         album.setCollector(collector);
@@ -152,7 +152,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void createAlbum_shouldFail_whenInvalidFormIsPosted() throws Exception {
+    public void albumCreate2() throws Exception {
         webClient.perform(post("/items/albums")
                 .content(objectMapper.writeValueAsString(new Album())))
                 .andExpect(status().isBadRequest())
@@ -164,7 +164,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void createBook_shouldSucceed_whenValidFormIsPosted() throws Exception {
+    public void bookCreate1() throws Exception {
         Collector collector = collectorBuilder.collector("Ahmar Warraq").save();
         Book book = new Book();
         book.setCollector(collector);
@@ -182,7 +182,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void createBook_shouldFail_whenInvalidFormIsPosted() throws Exception {
+    public void bookCreate2() throws Exception {
         webClient.perform(post("/items/books")
                 .content(objectMapper.writeValueAsString(new Book())))
                 .andExpect(status().isBadRequest())
@@ -194,7 +194,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void uploadBooks_shouldSucceed_whenBooksCsvIsProvided() throws Exception {
+    public void bookUpload1() throws Exception {
         InputStream booksCsv = webApplicationContext.getResource("classpath:/import/amazon_books.csv").getInputStream();
         
         webClient.perform(fileUpload("/items/books/upload")
@@ -206,7 +206,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void uploadBooks_shouldFail_whenInvalidCsvIsProvided() throws Exception {
+    public void bookUpload2() throws Exception {
         InputStream invalidCsv = webApplicationContext.getResource("classpath:/import/imdb_movies.csv").getInputStream();
         
         webClient.perform(fileUpload("/items/books/upload")
@@ -215,7 +215,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void uploadMovies_shouldSucceed_whenMoviesCsvIsProvided() throws Exception {
+    public void movieUpload1() throws Exception {
         InputStream moviesCsv = webApplicationContext.getResource("classpath:/import/imdb_movies.csv").getInputStream();
         
         webClient.perform(fileUpload("/items/movies/upload")
@@ -227,7 +227,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void uploadMovies_shouldFail_whenInvalidCsvIsProvided() throws Exception {
+    public void movieUpload2() throws Exception {
         InputStream invalidCsv = webApplicationContext.getResource("classpath:/import/amazon_books.csv").getInputStream();
         
         webClient.perform(fileUpload("/items/movies/upload")
@@ -236,7 +236,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void uploadAlbums_shouldSucceed_whenAlbumsCsvIsProvided() throws Exception {
+    public void albumUpload1() throws Exception {
         InputStream albumsCsv = webApplicationContext.getResource("classpath:/import/spotify_albums.csv").getInputStream();
         
         webClient.perform(fileUpload("/items/albums/upload")
@@ -248,7 +248,7 @@ public class CollectorsItemControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void uploadAlbums_shouldFail_whenInvalidCsvIsProvided() throws Exception {
+    public void albumUpload2() throws Exception {
         InputStream invalidCsv = webApplicationContext.getResource("classpath:/import/amazon_books.csv").getInputStream();
         
         webClient.perform(fileUpload("/items/albums/upload")

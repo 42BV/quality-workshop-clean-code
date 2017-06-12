@@ -23,7 +23,7 @@ public class CollectorControllerTest extends AbstractWebIntegrationTest {
     private ObjectMapper objectMapper;
     
     @Test
-    public void list_shouldSucceed_whenFirstPageIsRequested() throws Exception {
+    public void list() throws Exception {
         collectorBuilder.collector("Yvonne IJzer").save();
         collectorBuilder.collector("Ahmar Warraq").save();
         
@@ -37,7 +37,7 @@ public class CollectorControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void create_shouldSucceed_whenValidFormIsPosted() throws Exception {
+    public void create() throws Exception {
         Collector collector = new Collector();
         collector.setName("Jan de Vries");
 
@@ -48,7 +48,7 @@ public class CollectorControllerTest extends AbstractWebIntegrationTest {
     }
     
     @Test
-    public void create_shouldFail_whenInvalidFormIsPosted() throws Exception {
+    public void fail() throws Exception {
         webClient.perform(MockMvcRequestBuilders.post("/collectors")
                 .content(objectMapper.writeValueAsString(new Collector())))
                 .andExpect(status().isBadRequest())
