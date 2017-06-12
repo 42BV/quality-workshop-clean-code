@@ -24,91 +24,90 @@ public class CollectorsItemValidator {
     private static Pattern pattern = Pattern.compile("[a-zA-Z -\\.]+");
 
     public boolean validate(CollectorsItem item) {
+
+        final List<ValidationError> errors = new ArrayList<>();
+
+        String header = "";
+        String itemName = "";
+        String itemPerson = null;
+
+        // +--------------------------+
+        // | >>> ALBUM VALIDATION <<< |
+        // +--------------------------+
         if (item instanceof Album) {
-            return validateAlbum((Album)item);
+
+            Album album = (Album)item;
+            header = "album";
+            itemName = album.getName();
+            itemPerson = album.getArtist();
+
+            // The Album URL must be a Spotify URL
+            if (!album.getSpotifyUrl().startsWith("https://open.spotify.com/album/")) {
+                errors.add(new ValidationError(StringFormatter.format("illegal Spotify URL %s", album.getSpotifyUrl()).getValue()));
+            }
+
+            // Make sure the Artist exists only of permitted characters and starts with a uppercase letter
+            String artist = album.getArtist();
+            Matcher matcher = pattern.matcher(artist);
+            if (    !(matcher.matches() &&
+                    Character.isUpperCase(artist.charAt(0)))) {
+                errors.add(new ValidationError(StringFormatter.format("illegal Album artist [%s]", artist).getValue()));
+            }
+
+            // +-------------------------+
+            // | >>> BOOK VALIDATION <<< |
+            // +-------------------------+
         } else if (item instanceof Book) {
-            return validateBook((Book)item);
+
+            Book book = (Book)item;
+            header = "book";
+            itemName = book.getName();
+            itemPerson = book.getAuthor();
+
+            // The Book URL must be a Amazon URL
+            if (!book.getAmazonUrl().startsWith("https://www.amazon.com/dp/")) {
+                errors.add(new ValidationError(StringFormatter.format("illegal Amazon URL %s", book.getAmazonUrl()).getValue()));
+            }
+
+            // Make sure the Author exists only of permitted characters and starts with a uppercase letter
+            String author = book.getAuthor();
+            Matcher matcher = pattern.matcher(author);
+            if (    !(matcher.matches() &&
+                    Character.isUpperCase(author.charAt(0)))) {
+                errors.add(new ValidationError(StringFormatter.format("illegal Book author [%s]", author).getValue()));
+            }
+
+            // +--------------------------+
+            // | >>> MOVIE VALIDATION <<< |
+            // +--------------------------+
         } else if (item instanceof Movie) {
-            return validateMovie((Movie)item);
+
+            Movie movie = (Movie)item;
+            header = "movie";
+            itemName = movie.getName();
+            itemPerson = null;
+
+            // The Movie URL must be an IMDB URL
+            if (!movie.getImdbUrl().startsWith("http://www.imdb.com/title/")) {
+                errors.add(new ValidationError(StringFormatter.format("illegal IMDB URL %s", movie.getImdbUrl()).getValue()));
+            }
         } else {
             throw new RuntimeException("Illegal class: " + item.getClass().getSimpleName());
         }
-    }
 
-    private boolean validateAlbum(Album album) {
-        final List<ValidationError> errors = new ArrayList<>();
-
-        verifyUrl(
-                errors,
-                album.getSpotifyUrl(),
-                "https://open.spotify.com/album/",
-                "illegal Spotify URL %s");
-
-        verifyPersonName(
-                errors,
-                album.getArtist(),
-                "illegal Album artist [%s]");
-
-        return checkForErrors(
-                errors,
-                new CollectorsItemLogHeader("album", album.getName(), album.getArtist()));
-    }
-
-    private boolean validateBook(Book book) {
-        final List<ValidationError> errors = new ArrayList<>();
-
-        verifyUrl(
-                errors,
-                book.getAmazonUrl(),
-                "https://www.amazon.com/dp/",
-                "illegal Amazon URL %s");
-
-        verifyPersonName(
-                errors,
-                book.getAuthor(),
-                "illegal Book author [%s]");
-
-        return checkForErrors(
-                errors,
-                new CollectorsItemLogHeader("book", book.getName(), book.getAuthor()));
-    }
-
-    private boolean validateMovie(Movie movie) {
-        final List<ValidationError> errors = new ArrayList<>();
-
-        verifyUrl(
-                errors,
-                movie.getImdbUrl(),
-                "http://www.imdb.com/title/",
-                "illegal IMDB URL %s");
-
-        return checkForErrors(
-                errors,
-                new CollectorsItemLogHeader("movie", movie.getName(), null));
-    }
-
-    private void verifyUrl(List<ValidationError> errors, String url, String startsWith, String errorsMsg) {
-        if (!url.startsWith(startsWith)) {
-            errors.add(new ValidationError(StringFormatter.format(errorsMsg, url).getValue()));
-        }
-    }
-
-    private void verifyPersonName(List<ValidationError> errors, String person, String errorMsg) {
-        Matcher matcher = pattern.matcher(person);
-        if (    !(matcher.matches() &&
-                Character.isUpperCase(person.charAt(0)))) {
-            errors.add(new ValidationError(StringFormatter.format(errorMsg, person).getValue()));
-        }
-    }
-
-    private boolean checkForErrors(List<ValidationError> errors, CollectorsItemLogHeader header) {
+        // If there are errors, send them to the log
         if (!errors.isEmpty()) {
-            header.logError();
+            if (itemPerson != null) {
+                LOGGER.error("Errors for {} [{}] with person [{}]", header, itemName, itemPerson);
+            } else {
+                LOGGER.error("Errors for {} [{}]", header, itemName);
+            }
             errors.forEach(error -> LOGGER.error("- {}", error.getDescription()));
             return false;
         } else {
             return true;
         }
+
     }
 
 }
