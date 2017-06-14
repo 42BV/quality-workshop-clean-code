@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.collectors_item.csv;
+package nl._42.qualityws.cleancode.collectors_item.service.csv;
 
 import io.beanmapper.annotations.BeanProperty;
 

@@ -6,19 +6,19 @@ import static org.springframework.util.Assert.notNull;
 import java.io.InputStream;
 import java.util.Collection;
 
-import io.beanmapper.BeanMapper;
-import nl._42.qualityws.cleancode.collectors_item.Album;
-import nl._42.qualityws.cleancode.collectors_item.Book;
-import nl._42.qualityws.cleancode.collectors_item.CollectorsItem;
-import nl._42.qualityws.cleancode.collectors_item.Movie;
-import nl._42.qualityws.cleancode.collectors_item.csv.CollectorsItemCsvReaderFacade;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import io.beanmapper.BeanMapper;
+import nl._42.qualityws.cleancode.collectors_item.Album;
+import nl._42.qualityws.cleancode.collectors_item.Book;
+import nl._42.qualityws.cleancode.collectors_item.CollectorsItem;
+import nl._42.qualityws.cleancode.collectors_item.Movie;
+import nl._42.qualityws.cleancode.collectors_item.service.csv.CollectorsItemCsvReaderFacade;
 
 @Service
 public class CollectorsItemService {
