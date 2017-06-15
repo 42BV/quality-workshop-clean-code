@@ -6,5 +6,5 @@ We introduced the `CollectorsItemCsvReaderFacade` that provides an interface tha
 
 ## Contains code that is the starting point for the "open/closed" refactoring:
 
-The `CollectorsItemValidator` class is not open for extension and closed for modification; each time a new subtype of `CollectorsItem` is introduced the implementation has to be changed. Also, when the validation of a subtype changes, the `CollectorsItemValidator` has to be modified.
+The `CollectorsItemValidator` class is not open for extension and not closed for modification; each time a new subtype of `CollectorsItem` is introduced the implementation has to be changed. Also, when the validation of a subtype changes, the `CollectorsItemValidator` has to be modified.
 We are going to refactor the code so that when introducing a new subtype of `CollectorsItem`, the existing implementation does not have to change...
