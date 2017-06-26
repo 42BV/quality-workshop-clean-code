@@ -1,4 +1,4 @@
-package nl._42.qualityws.cleancode.collectors_item.service;
+package nl._42.qualityws.cleancode.collectors_item.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
