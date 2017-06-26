@@ -6,27 +6,24 @@ import static org.springframework.util.Assert.notNull;
 import java.io.InputStream;
 import java.util.Collection;
 
-import io.beanmapper.BeanMapper;
-import nl._42.qualityws.cleancode.model.Album;
-import nl._42.qualityws.cleancode.model.Book;
-import nl._42.qualityws.cleancode.model.CollectorsItem;
-import nl._42.qualityws.cleancode.model.Movie;
-import nl._42.qualityws.cleancode.model.validator.AlbumValidator;
-import nl._42.qualityws.cleancode.model.validator.BookValidator;
-import nl._42.qualityws.cleancode.model.validator.CollectorsItemValidator;
-import nl._42.qualityws.cleancode.model.validator.MovieValidator;
-import nl._42.qualityws.cleancode.repository.AlbumRepository;
-import nl._42.qualityws.cleancode.repository.BookRepository;
-import nl._42.qualityws.cleancode.repository.CollectorsItemRepository;
-import nl._42.qualityws.cleancode.repository.MovieRepository;
-import nl._42.qualityws.cleancode.csv.CollectorsItemCsvReaderFacade;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import io.beanmapper.BeanMapper;
+import nl._42.qualityws.cleancode.csv.CollectorsItemCsvReaderFacade;
+import nl._42.qualityws.cleancode.model.Album;
+import nl._42.qualityws.cleancode.model.Book;
+import nl._42.qualityws.cleancode.model.CollectorsItem;
+import nl._42.qualityws.cleancode.model.Movie;
+import nl._42.qualityws.cleancode.model.validator.CollectorsItemValidator;
+import nl._42.qualityws.cleancode.repository.AlbumRepository;
+import nl._42.qualityws.cleancode.repository.BookRepository;
+import nl._42.qualityws.cleancode.repository.CollectorsItemRepository;
+import nl._42.qualityws.cleancode.repository.MovieRepository;
 
 @Service
 public class CollectorsItemService {
@@ -52,13 +49,13 @@ public class CollectorsItemService {
     private BeanMapper beanMapper;
 
     @Autowired
-    private MovieValidator movieValidator;
+    private CollectorsItemValidator<Movie> movieValidator;
 
     @Autowired
-    private AlbumValidator albumValidator;
+    private CollectorsItemValidator<Album> albumValidator;
 
     @Autowired
-    private BookValidator bookValidator;
+    private CollectorsItemValidator<Book> bookValidator;
 
     public <T extends CollectorsItem> T create(T item) {
         notNull(item, "Collectors' item to create may not be null");
