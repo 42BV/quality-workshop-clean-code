@@ -11,11 +11,11 @@ import nl._42.qualityws.cleancode.collectors_item.Movie;
 public class CollectorsItemValidatorFacade {
 
     @Autowired
-    private BookValidator bookValidator;
+    private CollectorsItemValidator<Book> bookValidator;
     @Autowired
-    private AlbumValidator albumValidator;
+    private CollectorsItemValidator<Album> albumValidator;
     @Autowired
-    private MovieValidator movieValidator;
+    private CollectorsItemValidator<Movie> movieValidator;
     
     public boolean validateBook(Book book) {
         return bookValidator.validate(book);
